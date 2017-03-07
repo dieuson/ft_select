@@ -12,88 +12,70 @@
 
 #include "../includes/ft_select.h"
 
-int				arrondi(float val)
+static char 		*set_style(char *start, char *end, char *str,
+																int disp_style)
 {
-	FT_INIT(int, val2, val);
-	FT_INIT(float, result, val - val2);
-	if (result >= 0.5)
-		return (val2);
-	return (val2);
-}
-
-int				ft_nb_elem_lst(int nb_elem, int nb_col)
-{
-	FT_INIT(float, result, 0);
-	while (result * nb_col < nb_elem)
-		result++;
-	return (result);
-}
-
-
-void		free_simple_tab(char ***tab_to_del)
-{
-	int		colonne;
-
-	colonne = 0;
-	while ((*tab_to_del) && (*tab_to_del)[colonne])
+	FT_INIT(char*, tmp, NULL);
+	FT_INIT(char*, style, NULL);
+	if (disp_style == T_UNDERREVERSE)
 	{
-		free((*tab_to_del)[colonne]);
-		(*tab_to_del)[colonne] = NULL;
-		colonne++;
+		style = ft_strjoin(tgetstr("mr", NULL), tgetstr("us", NULL));
+		tmp = style;
+		style = ft_strjoin(style, str);
+		free(tmp);
+		tmp = style;
+		style = ft_strjoin(style, tgetstr("me", NULL));
+		free(tmp);
+		tmp = style;
+		style = ft_strjoin(style, tgetstr("ue", NULL));
 	}
-	free(*tab_to_del);
-	*tab_to_del = NULL;
+	else
+	{
+		style = ft_strjoin(tgetstr(start, NULL), str);
+		tmp = style;
+		style = ft_strjoin(style, tgetstr(end, NULL));
+	}
+	free(tmp);
+	return (style);
 }
 
-char		*set_sentence(char *str, int len_str, char *name)
+static char		*set_disp_atribute(char *str, int disp_style)
 {
-	FT_INIT(char*, tmp, ft_itoa(len_str + 2));
+	FT_INIT(char*, start, "");
+	FT_INIT(char*, end, "");
+	FT_INIT(char*, style, NULL);
+	if (!str)
+		return (str_error("disp_attribute", "No attribute"));
+	else if (disp_style == T_NORMAL)
+		return (ft_strdup(str));
+	start = disp_style == T_REVERSE ? "mr" : start;
+	start = disp_style == T_UNDERLINE ? "us" : start;
+	end = disp_style == T_REVERSE ? "me" : end;
+	end = disp_style == T_UNDERLINE ? "ue" : end;
+	style = set_style(start, end, str, disp_style);
+	return (style);
+}
+
+static char 		*set_printf_prototype(int len_str, int disp_attribute)
+{
+	FT_INIT(char*, prototype, NULL);
+	len_str = disp_attribute == T_REVERSE ? len_str + 8 : len_str;
+	len_str = disp_attribute == T_UNDERLINE ? len_str + 9 : len_str;
+	len_str = disp_attribute == T_UNDERREVERSE ? len_str + 17 : len_str;
+	prototype = ft_itoa(len_str + 2);
+	return (prototype);
+}
+
+char		*set_sentence(char *str, int len_str, t_var *cell)
+{
+	FT_INIT(char*, tmp, set_printf_prototype(len_str, cell->disp_attribute));
+	FT_INIT(char*, attribute_name, set_disp_atribute(cell->name, cell->disp_attribute));
 	str = ft_strcat(str, "%-");
 	str = ft_strcat(str, tmp);
 	str = ft_strcat(str, "s");
-	ft_printf(str, name);
+	ft_printf(str, attribute_name);
 	ft_bzero(str, ft_strlen(str));
 	ft_strdel(&tmp);
-	return (str);
-}
-
-char		*is_space(char *sentence, char *str)
-{
-	FT_INIT(char*, tmp, str);
-	if (sentence[ft_strlen(sentence) - 1] == ' ')
-	{
-		str = ft_strjoin(str, " ");
-		ft_strdel(&tmp);
-	}
-	ft_strdel(&sentence);
-	return (str);
-}
-
-char		*default_sentence(char **sentence)
-{
-	FT_INIT(char **, path, NULL);
-	FT_INIT(int, i, 0);
-	FT_INIT(char*, tmp, NULL);
-	FT_INIT(char*, str, NULL);
-	if (!ft_strchr(*sentence, ' '))
-		return (*sentence);
-	str = ft_strdup("");
-	path = ft_strsplit(*sentence, ' ');
-	while (path && path[i])
-	{
-		tmp = str;
-		str = ft_strjoin(str, path[i]);
-		if (tmp)
-			ft_strdel(&tmp);
-		if (path[i + 1] && str && ft_strlen(str))
-		{
-			tmp = str;
-			str = ft_strjoin(str, " ");
-			ft_strdel(tmp ? &tmp : NULL);
-		}
-		i++;
-	}
-	free_simple_tab(&path);
-	str = is_space(*sentence, str);
+	ft_strdel(&attribute_name);
 	return (str);
 }

@@ -24,6 +24,7 @@ void			free_lists(t_var *match_files)
 		match_files = match_files->next;
 		free(tmp);
 	}
+	free(match_files);
 }
 
 void			free_lst_lst(t_completion *lst_lst)
@@ -50,18 +51,5 @@ void			free_files(t_var **files_list)
 		(*files_list) = (*files_list)->next;
 		free(tmp);
 	}
-}
-
-void			free_auto_tab(char **table)
-{
-	int		colonne;
-
-	colonne = 0;
-	while ((table) && (table)[colonne])
-	{
-		free((table)[colonne]);
-		(table)[colonne] = NULL;
-		colonne++;
-	}
-	free(table);
+	free(*files_list);
 }

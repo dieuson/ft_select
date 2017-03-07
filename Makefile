@@ -30,7 +30,8 @@ LFLAGS				=	-L$(LIBFT_DIR) -l$(LIBFT)
 FILES_SELECT		=	main.c init.c init_termios.c free_term.c signal.c \
 						catch_key.c errors.c build_files_list.c \
 						display_completion.c set_sentence.c build_list.c \
-						free_auto_completion.c
+						free_auto_completion.c tools.c display_tools.c \
+						move_list.c distrib_tasks.c
 
 SRC_SELECT	=	$(addprefix $(SELECT_DIR), $(FILES_SELECT))
 BIN_SELECT	= 	$(FILES_SELECT:.c=.o)
@@ -52,13 +53,13 @@ $(NAME):
 	mv $(ALL_BINS) bin_folder
 
 clean_lib:
-	make -C $(LIBFT_DIR) clean
+#	make -C $(LIBFT_DIR) clean
 
 clean: clean_lib
 	rm -rf bin_folder
 
 fclean_lib: clean_lib
-	make -C $(LIBFT_DIR) fclean
+#	make -C $(LIBFT_DIR) fclean
 
 fclean: clean fclean_lib
 	rm -rf $(NAME)

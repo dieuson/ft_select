@@ -1,11 +1,14 @@
 #include "../includes/ft_select.h"
 
-static t_var 					*create_cell(char *name)
+t_var 					*create_var_cell(char *name)
 {
 	FT_INIT(t_var*, cell, NULL);
 	if (!(cell = (t_var*)malloc(sizeof(t_var))))
-		return (var_error("malloc", "create_cell"));	
+		return (var_error("malloc", "create_cell"));
+	if (ft_strrchr(name, '/'))
+		name = ft_strrchr(name, '/') + 1;
 	cell->name = ft_strdup(name);
+	cell->disp_attribute = T_NORMAL;
 	cell->next = NULL;
 	cell->prev = NULL;
 	return (cell);
@@ -21,7 +24,8 @@ void			free_files_list(t_var *files)
 		ft_strdel(&(files->name));
 		tmp = files;
 		files = files->next;
-		free(tmp);
+		if (tmp)
+			free(tmp);
 	}
 }
 
@@ -34,10 +38,10 @@ t_var 					*get_files(char **argv)
 	while (argv && argv[i])
 	{
 		if (!files)
-			MULTI(head, files, create_cell(argv[i]));
+			MULTI(head, files, create_var_cell(argv[i]));
 		else
 		{
-			files->next = create_cell(argv[i]);
+			files->next = create_var_cell(argv[i]);
 			files->prev = files;
 			files = files->next;
 		}
@@ -48,5 +52,6 @@ t_var 					*get_files(char **argv)
 	}
 	s_select.len_str = max_len;
 	s_select.nb_elem = i;
+	head->disp_attribute = T_UNDERLINE;
 	return (head);
 }

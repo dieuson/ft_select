@@ -28,6 +28,9 @@ int		init_termios(struct termios my_termios)
 		return (termios_error(1));
 	if (tgetent(NULL, term_name) == ERR)
 		return (termios_error(2));
+	tputs(tgetstr("clear", NULL),1,ft_putchar_int);
+	tputs(tgetstr("sc", NULL), 1, ft_putchar_int);
+	tputs(tgetstr("vi", NULL), 1, ft_putchar_int);
 	tcgetattr(STDIN_FILENO, &my_termios);
 	my_termios.c_lflag &= ~ICANON;
 	my_termios.c_lflag &= ~ECHO;

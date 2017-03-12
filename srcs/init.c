@@ -37,6 +37,9 @@ static int 					init_struct(void)
 	s_select.lst_lst = NULL;
 	s_select.pos_x = 1;
 	s_select.pos_y = 1;
+	s_select.len_current_col = 0;
+	s_select.len_current_line = 0;
+	s_select.running = 1;
 	if (!(s_select.win = init_win()))
 		return (int_error("malloc", "init win"));
 	s_select.c = ft_strnew(16);

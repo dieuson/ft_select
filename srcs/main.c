@@ -46,23 +46,26 @@ int 					return_values(t_var *files)
 int 					select_loop(void)
 {
 	FT_INIT(int, key, 0);
-	tputs(tgetstr("clear", NULL),1,ft_putchar_int);
-	tputs(tgetstr("sc", NULL), 1, ft_putchar_int);
-	tputs(tgetstr("vi", NULL), 1, ft_putchar_int);
 	while (42)
 	{
 		display_completion(s_select.files);
+		if (!s_select.files)
+			return (return_values(s_select.files));
 		key = readkey();
 		if (key == K_RETURN)
 			return (return_values(s_select.files));
-		else if (is_arrow(key))
+		else if (is_arrow(key) && s_select.running)
 			move_list(key);
-		else if (key == K_SPACE)
+		else if (key == K_SPACE && s_select.running)
 			select_element();
-		else if (key == K_BACKSP)
+		else if (key == K_BACKSP && s_select.running)
 			delete_element();
 		else if (key == K_ESCAPE)
 			return (0);
+		s_select.last_v_x = 0;
+		s_select.last_v_y = 0;
+		s_select.last_h_x = 0;
+		s_select.last_h_y = 0;
 	}
 	return (1);
 }

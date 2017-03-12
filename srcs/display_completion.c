@@ -15,26 +15,18 @@
 void		display_form(t_completion *all_col, int nb_elem, int len_str, int nb_col)
 {
 	FT_INIT(t_var *, col, all_col->elem);
-	FT_INIT(t_completion *, head, all_col);
 	FT_INIT(char *, tmp, NULL);
-	FT_INIT(int, ref_col, 0);
 	tmp = ft_strnew(s_select.len_str + 100);
-	while (all_col && nb_elem >= 0)
+	while (all_col && nb_elem)
 	{
-		head = !ref_col ? all_col : head;
 		col = all_col->elem;
-		nb_elem += if_col(col, tmp, len_str, &all_col);
-		if (ref_col >= nb_col - 1)
-		{
-			ft_putendl("");
-			ref_col = 0;
-			all_col = head;
-		}
-		else
-			all_col = change_col(all_col, head, &ref_col, &nb_elem);
+		if_col(col, tmp, len_str, &all_col);
+		all_col = all_col->next;
 	}
 	ft_strdel(&tmp);
-//	ft_putendl("");
+	ft_putendl("");
+	if (nb_col)
+		return ;
 }
 
 static float	*get_display_values(int nb_elem, int len)
@@ -58,9 +50,10 @@ static	int		ask_to_show_data(float *disp_val)
 	i++;
 	if (max_elem_lst < elem_lst || (s_select.len_str + 2) > s_select.win->ws_col)
 	{
-		ft_putstr("Fenetre trop petite\n");
-		return (0);
+		s_select.running = 0;
+		return (int_error("Window", "Too small window"));
 	}
+	s_select.running = 1;
 	return (1);
 }
 
@@ -68,16 +61,7 @@ static	int		ask_to_show_data(float *disp_val)
 void			display_completion(t_var *match_files)
 {
 	if (!match_files)
-	{
-		ft_putstr("No match_files\n");
-		return ;
-	}
-//	if (s_select.nb_elem == 1)
-//	{
-//		ft_putendl(match_files->name);
-//		free_lists(match_files);
-//		return ;
-//	}
+		return (void_error("Data", "no arguments to display"));
 	FT_INIT(float*, disp_val, get_display_values(s_select.nb_elem, s_select.len_str));
 	FT_INIT(t_completion *, lst_lst, NULL);
 	FT_INIT(t_completion*, tmp_lst, NULL);
@@ -86,10 +70,15 @@ void			display_completion(t_var *match_files)
 	tputs(tgetstr("rc", NULL), 1, ft_putchar_int);
 	tputs(tgetstr("clear", NULL),1,ft_putchar_int);
 	if (!ask_to_show_data(disp_val))
+	{
+		free(disp_val);
 		return ;
-//		return (free_lists(match_files));
+	}
 	if (s_select.lst_lst)
+	{
 		free_lst_lst(s_select.lst_lst);
+		s_select.lst_lst = NULL;
+	}
 	lst_lst = build_lst_lst(match_files, (nb_elem_lst == 0 ?
 			1 : nb_elem_lst), nb_col);
 	s_select.lst_lst = build_lst_lst(match_files, (nb_elem_lst == 0 ?

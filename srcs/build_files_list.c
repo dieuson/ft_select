@@ -9,6 +9,9 @@ t_var 					*create_var_cell(char *name)
 		name = ft_strrchr(name, '/') + 1;
 	cell->name = ft_strdup(name);
 	cell->disp_attribute = T_NORMAL;
+	cell->index = 0;
+	cell->pos_x = 0;
+	cell->pos_y = 0;
 	cell->next = NULL;
 	cell->prev = NULL;
 	return (cell);

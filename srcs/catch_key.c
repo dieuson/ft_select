@@ -22,6 +22,8 @@ static int		detect_arrow(char *key)
 		return (K_UP);
 	else if (key[0] == 27 && key[1] == 91 && key[2] == 66)
 		return (K_DOWN);
+	else if (key[0] == 27 && key[1] == 91 && key[2] == 51 && key[3] == 126)
+		return (K_BACKSP);
 	else if (key[0] == 27 && !key[1])
 		return (K_ESCAPE);
 	return (K_UNKNOWN);
@@ -42,5 +44,7 @@ int				readkey(void)
 		return (K_BACKSP);
 	else if (c[0] == 10)
 		return (K_RETURN);
+	else if (c[0] == 4)
+		return (K_ESCAPE);
 	return (K_UNKNOWN);
 }

@@ -12,7 +12,7 @@
 
 #include "../includes/ft_select.h"
 
-static void			free_edition_line(void)
+ void			free_edition_line(void)
 {
 	if (s_select.win)
 		free(s_select.win);

@@ -27,15 +27,16 @@ void		ft_sigstop(int sig)
 	tputs(tgetstr("me", NULL), 1, ft_putchar_int);
 	tputs(tgetstr("vs", NULL), 1, ft_putchar_int);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar_int);
-	(void)sig;
-//	exit(0);
+//	(void)sig;
+	if (sig == SIGTSTP)
+		exit(0);
 }
 
 void		ft_sigkill(int sig)
 {
 	(void)sig;
 	ft_reset_termios(s_select.t_back);
-	exit(1);
+	exit(0);
 }
 
 void		ft_segfault(int sig)
@@ -55,12 +56,6 @@ void 		ft_wake_up(int sig)
 
 void		ft_signal(void)
 {
-	FT_INIT(int, i, 2);
-	while (i < 30)
-	{
-//		signal(i, ft_sigint);
-		i++;
-	}
 	signal(SIGWINCH, ft_sigwinch);
 	signal(SIGTSTP, ft_sigstop);
 	signal(SIGCONT, ft_wake_up);

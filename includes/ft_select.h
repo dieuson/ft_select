@@ -44,6 +44,8 @@ typedef struct				s_var
 	int 					index_init;
 	int 					disp_attribute;
 	int 					len_col;
+	int 					pos_x;
+	int 					pos_y;
 	struct s_var			*next;
 	struct s_var			*prev;
 }							t_var;
@@ -52,7 +54,7 @@ typedef struct				s_completion
 {
 	struct s_var			*elem;
 	int 					nb_col;
-	int 					index;
+	int 					pos_y;
 	struct s_completion		*next;
 }							t_completion;
 
@@ -62,12 +64,15 @@ typedef struct				s_select
 	int						nb_rows;
 	int 					len_str;
 	int 					nb_elem;
+	int 					len_current_col;
+	int 					len_current_line;
 	int 					pos_x;
 	int 					pos_y;
 	int 					last_h_x;
 	int 					last_h_y;
 	int 					last_v_x;
 	int 					last_v_y;
+	int 					running;
 	char 					*c;
 	t_completion 			*lst_lst;
 	struct winsize			*win;
@@ -79,6 +84,7 @@ typedef struct				s_select
 t_select 					s_select;
 
 int					init_all(void);
+void 				set_style_move(int index, t_var *files);
 int					init_termios(struct termios my_termios);
 void				ft_reset_termios(struct termios t_back);
 char				*set_sentence(char *str, int len_str, t_var *cell);
@@ -102,11 +108,14 @@ int 				go_to_position(int pos_x, int pos_y, int key);
 char 				*str_error(char *type, char *name);
 t_var 				*var_error(char *type, char *name);
 int 				int_error(char *type, char *name);
+void 				void_error(char *type, char *name);
+t_completion		*completion_error(char *type, char *name);
 
 void				free_lists(t_var *match_files);
 void				free_lst_lst(t_completion *lst_lst);
 void 				select_element(void);
 void 				delete_element(void);
+t_var			 	*delete_index(int index);
 
 
 int					readkey(void);

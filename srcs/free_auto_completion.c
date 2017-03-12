@@ -27,18 +27,6 @@ void			free_lists(t_var *match_files)
 	free(match_files);
 }
 
-void			free_lst_lst(t_completion *lst_lst)
-{
-	FT_INIT(t_completion*, tmp_lst, NULL);
-	while (lst_lst->next)
-	{
-		tmp_lst = lst_lst;
-		lst_lst = lst_lst->next;
-		free(tmp_lst);
-	}
-	free(lst_lst);
-}
-
 void			free_files(t_var **files_list)
 {
 	FT_INIT(t_var*, tmp, NULL);
@@ -52,4 +40,21 @@ void			free_files(t_var **files_list)
 		free(tmp);
 	}
 	free(*files_list);
+}
+
+void			free_lst_lst(t_completion *lst_lst)
+{
+	FT_INIT(t_completion*, tmp_lst, NULL);
+	if (!lst_lst)
+		return ;
+	while (lst_lst->next)
+	{
+		tmp_lst = lst_lst;
+		lst_lst->elem = NULL;
+		lst_lst = lst_lst->next;
+		ft_memdel((void*)&tmp_lst);
+	}
+	if (lst_lst)
+		ft_memdel((void*)&lst_lst);
+	lst_lst = NULL;	
 }

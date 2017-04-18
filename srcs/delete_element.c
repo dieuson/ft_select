@@ -10,7 +10,7 @@ t_var	*find_cell(int index)
 	return (files);
 }
 
-t_var 	*delete_cell_2(t_var *files, t_var *prev)
+static t_var 	*delete_cell_2(t_var *files, t_var *prev)
 {
 	if (prev && files->next && files->prev)
 	{

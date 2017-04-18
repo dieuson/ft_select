@@ -1,0 +1,9 @@
+./ft_select
+./ft_select ""
+./ft_select ''
+./ft_select "/"
+./ft_select "./"
+./ft_select "../"
+./ft_select "..."
+
+Problem position curseur apres resize de la fenetre

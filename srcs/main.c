@@ -12,19 +12,20 @@
 
 #include "../includes/ft_select.h"
 
-int				is_arrow(int key)
+static int				is_arrow(int key)
 {
 	if (key == K_DOWN || key == K_UP || key == K_LEFT || key == K_RIGHT)
 		return (1);
 	return (0);
 }
 
-int 					return_values(t_var *files)
+static int 				return_values(t_var *files)
 {
 	FT_INIT(t_var*, head, files);
 	if (!files)
 		return (int_error("files", "empty files list"));
-	ft_putendl("");
+	tputs(tgetstr("ho", NULL), 1, ft_putchar_int);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar_int);
 	while (files)
 	{
 		if (files->disp_attribute == T_UNDERREVERSE ||
@@ -37,6 +38,9 @@ int 					return_values(t_var *files)
 		}
 		files = files->next;
 	}
+	if (s_select.lst_lst)
+		free_lst_lst(s_select.lst_lst);
+	s_select.lst_lst = NULL;
 	if (head)
 		free_files_list(head);
 	ft_putstr("\n");
@@ -48,7 +52,7 @@ int 					select_loop(void)
 	FT_INIT(int, key, 0);
 	while (42)
 	{
-		display_completion(s_select.files);
+		display_elements(s_select.files);
 		if (!s_select.files)
 			return (return_values(s_select.files));
 		key = readkey();
@@ -72,8 +76,10 @@ int 					select_loop(void)
 
 int						main(int argc, char **argv, char **envp)
 {
-	if (argc <= 1 || !argv || !envp)
-		return (0);
+	if (argc <= 1 || !argv)
+		return (int_error("files", "No Arguments"));
+	else if (!envp)
+		return (int_error("Env", "No environnement"));
 	if (!(init_all()))
 	{
 		ft_reset_termios(s_select.t_back);

@@ -12,7 +12,7 @@
 
 #include "../includes/ft_select.h"
 
-void		display_form(t_completion *all_col, int nb_elem, int len_str, int nb_col)
+static void		display_form(t_completion *all_col, int nb_elem, int len_str, int nb_col)
 {
 	FT_INIT(t_var *, col, all_col->elem);
 	FT_INIT(char *, tmp, NULL);
@@ -20,11 +20,10 @@ void		display_form(t_completion *all_col, int nb_elem, int len_str, int nb_col)
 	while (all_col && nb_elem)
 	{
 		col = all_col->elem;
-		if_col(col, tmp, len_str, &all_col);
+		if_col(col, tmp, len_str, all_col);
 		all_col = all_col->next;
 	}
 	ft_strdel(&tmp);
-	ft_putendl("");
 	if (nb_col)
 		return ;
 }
@@ -45,10 +44,10 @@ static	int		ask_to_show_data(float *disp_val)
 {
 	FT_INIT(int, max_elem_lst, disp_val[5]);
 	FT_INIT(int, elem_lst, disp_val[4]);
-	static int i = 0;
-
-	i++;
-	if (max_elem_lst < elem_lst || (s_select.len_str + 2) > s_select.win->ws_col)
+	FT_INIT(int, nb_rows, s_select.nb_rows);
+	FT_INIT(int, len_line, (s_select.len_str + 2));
+	if (max_elem_lst < elem_lst || (nb_rows > 0 && nb_rows > s_select.win->ws_row)
+		|| len_line > s_select.win->ws_col)
 	{
 		s_select.running = 0;
 		return (int_error("Window", "Too small window"));
@@ -58,7 +57,7 @@ static	int		ask_to_show_data(float *disp_val)
 }
 
 
-void			display_completion(t_var *match_files)
+void			display_elements(t_var *match_files)
 {
 	if (!match_files)
 		return (void_error("Data", "no arguments to display"));
@@ -67,13 +66,10 @@ void			display_completion(t_var *match_files)
 	FT_INIT(t_completion*, tmp_lst, NULL);
 	FT_INIT(float, nb_col, disp_val[2]);
 	FT_INIT(float, nb_elem_lst, disp_val[4]);
-	tputs(tgetstr("rc", NULL), 1, ft_putchar_int);
-	tputs(tgetstr("clear", NULL),1,ft_putchar_int);
+	tputs(tgetstr("ho", NULL), 1, ft_putchar_int);
+	tputs(tgetstr("cd", NULL),1,ft_putchar_int);
 	if (!ask_to_show_data(disp_val))
-	{
-		free(disp_val);
-		return ;
-	}
+		return (free(disp_val));
 	if (s_select.lst_lst)
 	{
 		free_lst_lst(s_select.lst_lst);
@@ -82,9 +78,9 @@ void			display_completion(t_var *match_files)
 	lst_lst = build_lst_lst(match_files, (nb_elem_lst == 0 ?
 			1 : nb_elem_lst), nb_col);
 	s_select.lst_lst = build_lst_lst(match_files, (nb_elem_lst == 0 ?
-			1 : nb_elem_lst), nb_col);
+				1 : nb_elem_lst), nb_col);
 	tmp_lst = lst_lst;
 	display_form(lst_lst, disp_val[0], disp_val[1], disp_val[2]);
-	free_lst_lst(tmp_lst);
 	free(disp_val);
+	free_lst_lst(tmp_lst);
 }

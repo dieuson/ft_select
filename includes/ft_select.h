@@ -68,10 +68,12 @@ typedef struct				s_select
 	int 					len_current_line;
 	int 					pos_x;
 	int 					pos_y;
+	int 					index;
 	int 					last_h_x;
 	int 					last_h_y;
 	int 					last_v_x;
 	int 					last_v_y;
+	bool					is_stop;
 	int 					running;
 	char 					*c;
 	t_completion 			*lst_lst;
@@ -92,11 +94,11 @@ int					arrondi(float val);
 t_completion		*build_lst_lst(t_var *match_files, int nb_elem, int nb_col);
 t_var				*create_var_cell(char *name);
 int					ft_nb_elem_lst(int nb_elem, int nb_col);
-void				display_completion(t_var *match_files);
+void				display_elements(t_var *match_files);
 t_completion		*change_col(t_completion *all_col, t_completion *head,
 						int *ref_col, int *nb_elem);
 int					if_col(t_var *col, char *tmp,
-						int len_str, t_completion **all_col);
+						int len_str, t_completion *all_col);
 
 void				ft_signal(void);
 t_var 				*get_files(char **argv);
@@ -116,9 +118,11 @@ void				free_lst_lst(t_completion *lst_lst);
 void 				select_element(void);
 void 				delete_element(void);
 t_var			 	*delete_index(int index);
-
+int					select_loop(void);
 
 int					readkey(void);
+int 				check_positions_h(int pos_x, int pos_y);
+int 				check_positions_v(int pos_x, int pos_y, t_completion *lst_lst, int key);
 
 
 #endif

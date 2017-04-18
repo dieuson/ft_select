@@ -92,5 +92,6 @@ t_completion	*build_lst_lst(t_var *match_files, int nb_elem, int nb_col)
 		s_select.last_v_x = all_col->elem->len_col;
 	s_select.last_v_y = pos_y ? pos_y - 1 : 1;
 	head_all_col->nb_col = pos_y;
+	s_select.nb_rows = pos_y;
 	return (head_all_col);
 }

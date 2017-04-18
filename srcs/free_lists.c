@@ -47,14 +47,23 @@ void			free_lst_lst(t_completion *lst_lst)
 	FT_INIT(t_completion*, tmp_lst, NULL);
 	if (!lst_lst)
 		return ;
-	while (lst_lst->next)
+	FT_INIT(t_var*, tmp_var, NULL);
+	FT_INIT(t_var*, var, NULL);
+	while (lst_lst)
 	{
 		tmp_lst = lst_lst;
-		lst_lst->elem = NULL;
+		var = tmp_lst->elem;
+		while (var)
+		{
+			tmp_var = var;
+			ft_strdel(&tmp_var->name);
+			var = var->next;
+			ft_memdel((void*)&tmp_var);
+		}
+		ft_memdel((void*)&var);
 		lst_lst = lst_lst->next;
 		ft_memdel((void*)&tmp_lst);
 	}
-	if (lst_lst)
-		ft_memdel((void*)&lst_lst);
-	lst_lst = NULL;	
+	ft_memdel((void*)&lst_lst);
+	return ;
 }

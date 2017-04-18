@@ -65,6 +65,7 @@ void 			select_element(void)
 		return ;
 	index = go_to_position(s_select.pos_x, s_select.pos_y, K_SPACE);
 	set_style_space(index, s_select.files);
+	set_style_move(index, s_select.files);
 }
 
 void			move_list(int key)
@@ -73,13 +74,15 @@ void			move_list(int key)
 		s_select.pos_x += 1;
 	else if (key == K_LEFT)
 		s_select.pos_x -= 1;
-	else if (key == K_UP)
+	else if (key == K_UP && s_select.nb_elem > 1)
 		s_select.pos_y -= 1;
-	else if (key == K_DOWN)
+	else if (key == K_DOWN && s_select.nb_elem > 1)
 		s_select.pos_y += 1;
 	FT_INIT(int, index, 0);
 	if (!s_select.files)
 		return ;
-	index = go_to_position(s_select.pos_x, s_select.pos_y, key);
+	if (s_select.nb_elem > 1)
+		index = go_to_position(s_select.pos_x, s_select.pos_y, key);
 	set_style_move(index, s_select.files);
+	ft_printf("pos_x =%d, pos_y =%d\n", s_select.pos_x, s_select.pos_y);
 }

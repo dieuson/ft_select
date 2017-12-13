@@ -31,7 +31,7 @@ int				init_termios(struct termios my_termios)
 	tputs(tgetstr("clear", NULL), 1, ft_putchar_int);
 	tputs(tgetstr("sc", NULL), 1, ft_putchar_int);
 	tputs(tgetstr("vi", NULL), 1, ft_putchar_int);
-	tcgetattr(STDIN_FILENO, &s_select.t_back);
+	tcgetattr(STDIN_FILENO, &g_select.t_back);
 	tcgetattr(STDIN_FILENO, &my_termios);
 	my_termios.c_lflag &= ~ICANON;
 	my_termios.c_lflag &= ~ECHO;

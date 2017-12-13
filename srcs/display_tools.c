@@ -43,9 +43,9 @@ int			if_col(t_var *col, char *tmp,
 		if (col && (col->disp_attribute == T_UNDERLINE ||
 			col->disp_attribute == T_UNDERREVERSE))
 		{
-			s_select.len_current_line = len_current_line;
-			s_select.len_current_col =
-				get_len_col_elem(s_select.lst_lst, col->pos_x);
+			g_select.len_current_line = len_current_line;
+			g_select.len_current_col =
+				get_len_col_elem(g_select.lst_lst, col->pos_x);
 		}
 		tmp = set_sentence(tmp, len_str, col);
 		col = col->next;

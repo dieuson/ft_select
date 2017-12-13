@@ -29,23 +29,23 @@ static struct winsize		*init_win(void)
 
 static int					init_struct(void)
 {
-	s_select.cursor = 0;
-	s_select.nb_rows = 0;
-	s_select.len_str = 0;
-	s_select.nb_elem = 0;
-	s_select.lst_lst = NULL;
-	s_select.pos_x = 1;
-	s_select.pos_y = 1;
-	s_select.index = 0;
-	s_select.len_current_col = 0;
-	s_select.len_current_line = 0;
-	s_select.running = 1;
-	s_select.is_stop = false;
-	if (!(s_select.win = init_win()))
+	g_select.cursor = 0;
+	g_select.nb_rows = 0;
+	g_select.len_str = 0;
+	g_select.nb_elem = 0;
+	g_select.lst_lst = NULL;
+	g_select.pos_x = 1;
+	g_select.pos_y = 1;
+	g_select.index = 0;
+	g_select.len_current_col = 0;
+	g_select.len_current_line = 0;
+	g_select.running = 1;
+	g_select.is_stop = false;
+	if (!(g_select.win = init_win()))
 		return (int_error("malloc", "init win"));
-	s_select.c = ft_strnew(16);
-	tcgetattr(STDIN_FILENO, &s_select.t_back);
-	if (!init_termios(s_select.my_termios))
+	g_select.c = ft_strnew(16);
+	tcgetattr(STDIN_FILENO, &g_select.t_back);
+	if (!init_termios(g_select.my_termios))
 		return (0);
 	return (1);
 }

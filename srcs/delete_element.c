@@ -14,8 +14,8 @@
 
 t_var			*find_cell(int index)
 {
-	FT_INIT(t_var*, files, s_select.files);
-	if (index == -1 || !s_select.files)
+	FT_INIT(t_var*, files, g_select.files);
+	if (index == -1 || !g_select.files)
 		return (NULL);
 	while (index != -1 && files && files->index != index)
 		files = files->next;
@@ -38,7 +38,7 @@ static t_var	*delete_cell_2(t_var *files, t_var *prev)
 		ft_strdel(&files->name);
 		free(files);
 		files = NULL;
-		s_select.files = prev;
+		g_select.files = prev;
 	}
 	return (prev);
 }
@@ -58,11 +58,11 @@ t_var			*delete_cell(t_var *files, t_var *prev, int index)
 		{
 			prev->next = NULL;
 			files = prev;
-			s_select.pos_x = files->pos_x;
-			s_select.pos_y = files->pos_y;
+			g_select.pos_x = files->pos_x;
+			g_select.pos_y = files->pos_y;
 		}
 		else
-			s_select.files = NULL;
+			g_select.files = NULL;
 	}
 	else
 		prev = delete_cell_2(files, prev);
@@ -71,13 +71,13 @@ t_var			*delete_cell(t_var *files, t_var *prev, int index)
 
 t_var			*delete_index(int index)
 {
-	FT_INIT(t_var*, files, s_select.files);
+	FT_INIT(t_var*, files, g_select.files);
 	FT_INIT(t_var*, prev, NULL);
-	if (!s_select.files)
+	if (!g_select.files)
 	{
 		tputs(tgetstr("rc", NULL), 1, ft_putchar_int);
 		tputs(tgetstr("clear", NULL), 1, ft_putchar_int);
-		ft_reset_termios(s_select.t_back);
+		ft_reset_termios(g_select.t_back);
 		exit(0);
 	}
 	prev = delete_cell(files, prev, index);

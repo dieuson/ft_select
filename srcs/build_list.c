@@ -59,10 +59,10 @@ static t_var		*build_col(t_var **match_files, int nb_elem_lst, int pos_y)
 		pos_x++;
 		(*match_files) = (*match_files)->next;
 	}
-	if (pos_x >= s_select.last_h_x && pos_y >= s_select.last_h_y)
+	if (pos_x >= g_select.last_h_x && pos_y >= g_select.last_h_y)
 	{
-		s_select.last_h_x = pos_x;
-		s_select.last_h_y = pos_y ? pos_y : 1;
+		g_select.last_h_x = pos_x;
+		g_select.last_h_y = pos_y ? pos_y : 1;
 	}
 	head_col->len_col = pos_x;
 	return (head_col);
@@ -89,9 +89,9 @@ t_completion		*build_lst_lst(t_var *match_files, int nb_elem, int nb_col)
 	}
 	all_col->next = NULL;
 	if (all_col->elem)
-		s_select.last_v_x = all_col->elem->len_col;
-	s_select.last_v_y = pos_y ? pos_y - 1 : 1;
+		g_select.last_v_x = all_col->elem->len_col;
+	g_select.last_v_y = pos_y ? pos_y - 1 : 1;
 	head_all_col->nb_col = pos_y;
-	s_select.nb_rows = pos_y;
+	g_select.nb_rows = pos_y;
 	return (head_all_col);
 }

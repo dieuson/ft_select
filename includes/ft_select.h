@@ -95,7 +95,7 @@ typedef struct			s_select
 	t_var				*files;
 }						t_select;
 
-t_select				s_select;
+t_select				g_select;
 
 int						init_all(void);
 void					set_style_move(int index, t_var *files);

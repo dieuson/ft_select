@@ -14,12 +14,12 @@
 
 void				free_edition_line(void)
 {
-	if (s_select.win)
-		free(s_select.win);
-	if (s_select.c)
-		free(s_select.c);
-	if (s_select.lst_lst)
-		free_lst_lst(s_select.lst_lst);
+	if (g_select.win)
+		free(g_select.win);
+	if (g_select.c)
+		free(g_select.c);
+	if (g_select.lst_lst)
+		free_lst_lst(g_select.lst_lst);
 }
 
 void				ft_reset_termios(struct termios t_back)
@@ -28,7 +28,7 @@ void				ft_reset_termios(struct termios t_back)
 	tputs(tgetstr("me", NULL), 1, ft_putchar_int);
 	tputs(tgetstr("vs", NULL), 1, ft_putchar_int);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar_int);
-	if (!s_select.is_stop)
+	if (!g_select.is_stop)
 		free_edition_line();
-	s_select.is_stop = false;
+	g_select.is_stop = false;
 }

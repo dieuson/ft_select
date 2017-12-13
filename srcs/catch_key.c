@@ -31,7 +31,7 @@ static int		detect_arrow(char *key)
 
 int				readkey(void)
 {
-	FT_INIT(char*, c, s_select.c);
+	FT_INIT(char*, c, g_select.c);
 	ft_bzero(c, 16);
 	if (read(STDIN_FILENO, c, 15))
 	{

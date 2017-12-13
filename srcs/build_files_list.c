@@ -75,8 +75,8 @@ t_var			*get_files(char **argv)
 		}
 		i++;
 	}
-	s_select.len_str = max_len;
-	s_select.nb_elem = i;
+	g_select.len_str = max_len;
+	g_select.nb_elem = i;
 	if (head)
 		head->disp_attribute = T_UNDERLINE;
 	return (head);

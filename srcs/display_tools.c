@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_tools.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/13 15:28:29 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:28:30 by dvirgile         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_select.h"
 
-static int 	get_len_col_elem(t_completion *lst_lst, int pos_x)
+static int	get_len_col_elem(t_completion *lst_lst, int pos_x)
 {
 	FT_INIT(int, len_col, 0);
 	FT_INIT(t_var*, col, NULL);
@@ -19,7 +31,7 @@ static int 	get_len_col_elem(t_completion *lst_lst, int pos_x)
 	return (len_col);
 }
 
-int		if_col(t_var *col, char *tmp,
+int			if_col(t_var *col, char *tmp,
 								int len_str, t_completion *all_col)
 {
 	FT_INIT(int, nb_elem, -1);

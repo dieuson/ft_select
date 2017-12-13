@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apinho <apinho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/24 18:13:29 by apinho            #+#    #+#             */
-/*   Updated: 2017/02/24 18:32:50 by apinho           ###   ########.fr       */
+/*   Created: 2017/12/13 15:47:57 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:47:58 by dvirgile         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static struct winsize		*init_win(void)
 {
-	struct winsize 	*win;
+	struct winsize *win;
 
 	win = (struct winsize*)malloc(sizeof(struct winsize));
 	if (!win)
@@ -27,8 +27,7 @@ static struct winsize		*init_win(void)
 	return (win);
 }
 
-
-static int 					init_struct(void)
+static int					init_struct(void)
 {
 	s_select.cursor = 0;
 	s_select.nb_rows = 0;
@@ -46,7 +45,8 @@ static int 					init_struct(void)
 		return (int_error("malloc", "init win"));
 	s_select.c = ft_strnew(16);
 	tcgetattr(STDIN_FILENO, &s_select.t_back);
-	init_termios(s_select.my_termios);
+	if (!init_termios(s_select.my_termios))
+		return (0);
 	return (1);
 }
 

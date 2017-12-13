@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_term.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apinho <apinho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/24 18:13:29 by apinho            #+#    #+#             */
-/*   Updated: 2017/02/24 18:32:50 by apinho           ###   ########.fr       */
+/*   Created: 2017/12/13 15:47:40 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:47:42 by dvirgile         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_select.h"
 
- void			free_edition_line(void)
+void				free_edition_line(void)
 {
 	if (s_select.win)
 		free(s_select.win);

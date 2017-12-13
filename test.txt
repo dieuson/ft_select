@@ -8,5 +8,4 @@
 
 Problem position curseur apres resize de la fenetre
 
-Envoyer une erreur si que des espaces:
-./ft_select " "
+Gestion d'environnement vide

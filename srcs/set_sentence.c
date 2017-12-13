@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set_sentence.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apinho <apinho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/24 18:13:29 by apinho            #+#    #+#             */
-/*   Updated: 2017/02/24 18:35:41 by apinho           ###   ########.fr       */
+/*   Created: 2017/12/13 15:46:32 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:46:32 by dvirgile         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_select.h"
 
-static char 		*set_style(char *start, char *end, char *str,
+static char		*set_style(char *start, char *end, char *str,
 																int disp_style)
 {
 	FT_INIT(char*, tmp, NULL);
@@ -56,7 +56,7 @@ static char		*set_disp_atribute(char *str, int disp_style)
 	return (style);
 }
 
-static char 		*set_printf_prototype(int len_str, int disp_attribute)
+static char		*set_printf_prototype(int len_str, int disp_attribute)
 {
 	FT_INIT(char*, prototype, NULL);
 	len_str = disp_attribute == T_REVERSE ? len_str + 8 : len_str;
@@ -66,7 +66,7 @@ static char 		*set_printf_prototype(int len_str, int disp_attribute)
 	return (prototype);
 }
 
-static void			display_with_spaces(char *str, int nb_spaces)
+static void		display_with_spaces(char *str, int nb_spaces)
 {
 	ft_putstr_fd(str, 0);
 	nb_spaces -= ft_strlen(str);
@@ -77,10 +77,11 @@ static void			display_with_spaces(char *str, int nb_spaces)
 	}
 }
 
-char		*set_sentence(char *str, int len_str, t_var *cell)
+char			*set_sentence(char *str, int len_str, t_var *cell)
 {
 	FT_INIT(char*, tmp, set_printf_prototype(len_str, cell->disp_attribute));
-	FT_INIT(char*, attribute_name, set_disp_atribute(cell->name, cell->disp_attribute));
+	FT_INIT(char*, attribute_name,
+		set_disp_atribute(cell->name, cell->disp_attribute));
 	display_with_spaces(attribute_name, ft_atoi(tmp));
 	ft_bzero(str, ft_strlen(str));
 	ft_strdel(&tmp);

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   build_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apinho <apinho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/24 18:13:29 by apinho            #+#    #+#             */
-/*   Updated: 2017/02/24 18:36:48 by apinho           ###   ########.fr       */
+/*   Created: 2017/12/13 15:47:05 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:47:05 by dvirgile         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_select.h"
 
-static t_var 					*create_elem(t_var *elem, int pos_x, int pos_y)
+static t_var		*create_elem(t_var *elem, int pos_x, int pos_y)
 {
 	FT_INIT(t_var*, cell, NULL);
 	if (!(cell = (t_var*)malloc(sizeof(t_var))))
-		return (var_error("malloc", "create_elem"));	
+		return (var_error("malloc", "create_elem"));
 	cell->name = ft_strdup(elem->name);
 	cell->disp_attribute = elem->disp_attribute;
 	elem->pos_x = pos_x + 1;
@@ -41,7 +41,7 @@ static t_completion	*create_cell(t_var *elem, int pos_y)
 	return (new_cell);
 }
 
-static t_var	*build_col(t_var **match_files, int nb_elem_lst, int pos_y)
+static t_var		*build_col(t_var **match_files, int nb_elem_lst, int pos_y)
 {
 	FT_INIT(t_var *, col, NULL);
 	FT_INIT(t_var *, head_col, NULL);
@@ -55,7 +55,7 @@ static t_var	*build_col(t_var **match_files, int nb_elem_lst, int pos_y)
 			col->next = create_elem(*match_files, pos_x, pos_y);
 			col = col->next;
 		}
-		nb_elem_lst--; 
+		nb_elem_lst--;
 		pos_x++;
 		(*match_files) = (*match_files)->next;
 	}
@@ -68,7 +68,7 @@ static t_var	*build_col(t_var **match_files, int nb_elem_lst, int pos_y)
 	return (head_col);
 }
 
-t_completion	*build_lst_lst(t_var *match_files, int nb_elem, int nb_col)
+t_completion		*build_lst_lst(t_var *match_files, int nb_elem, int nb_col)
 {
 	FT_INIT(t_completion *, all_col, NULL);
 	FT_INIT(t_completion *, head_all_col, NULL);

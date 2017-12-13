@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apinho <apinho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/24 18:13:29 by apinho            #+#    #+#             */
-/*   Updated: 2017/02/24 18:32:48 by apinho           ###   ########.fr       */
+/*   Created: 2017/12/13 15:48:10 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:48:11 by dvirgile         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int				is_arrow(int key)
 	return (0);
 }
 
-static int 				return_values(t_var *files)
+static int				return_values(t_var *files)
 {
 	FT_INIT(t_var*, head, files);
 	if (!files)
@@ -46,7 +46,7 @@ static int 				return_values(t_var *files)
 	return (1);
 }
 
-int 					select_loop(void)
+int						select_loop(void)
 {
 	FT_INIT(int, key, 0);
 	while (42)

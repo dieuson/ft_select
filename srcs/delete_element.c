@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   delete_element.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/13 15:23:04 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:23:05 by dvirgile         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_select.h"
 
-t_var	*find_cell(int index)
-{	
+t_var			*find_cell(int index)
+{
 	FT_INIT(t_var*, files, s_select.files);
 	if (index == -1 || !s_select.files)
 		return (NULL);
@@ -10,7 +22,7 @@ t_var	*find_cell(int index)
 	return (files);
 }
 
-static t_var 	*delete_cell_2(t_var *files, t_var *prev)
+static t_var	*delete_cell_2(t_var *files, t_var *prev)
 {
 	if (prev && files->next && files->prev)
 	{
@@ -31,7 +43,7 @@ static t_var 	*delete_cell_2(t_var *files, t_var *prev)
 	return (prev);
 }
 
-t_var 	*delete_cell(t_var *files, t_var *prev, int index)
+t_var			*delete_cell(t_var *files, t_var *prev, int index)
 {
 	if (files && files->index != index)
 		return (delete_cell(files->next, files, index));
@@ -57,14 +69,14 @@ t_var 	*delete_cell(t_var *files, t_var *prev, int index)
 	return (prev);
 }
 
-t_var 	*delete_index(int index)
+t_var			*delete_index(int index)
 {
 	FT_INIT(t_var*, files, s_select.files);
 	FT_INIT(t_var*, prev, NULL);
 	if (!s_select.files)
 	{
 		tputs(tgetstr("rc", NULL), 1, ft_putchar_int);
-		tputs(tgetstr("clear", NULL),1,ft_putchar_int);
+		tputs(tgetstr("clear", NULL), 1, ft_putchar_int);
 		ft_reset_termios(s_select.t_back);
 		exit(0);
 	}

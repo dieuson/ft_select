@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_completion.c                               :+:      :+:    :+:   */
+/*   display_elements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apinho <apinho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/24 18:13:29 by apinho            #+#    #+#             */
-/*   Updated: 2017/02/24 18:35:46 by apinho           ###   ########.fr       */
+/*   Created: 2017/12/13 15:47:23 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:47:23 by dvirgile         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_select.h"
 
-static void		display_form(t_completion *all_col, int nb_elem, int len_str, int nb_col)
+static void		display_form(t_completion *all_col,
+				int nb_elem, int len_str, int nb_col)
 {
 	FT_INIT(t_var *, col, all_col->elem);
 	FT_INIT(char *, tmp, NULL);
@@ -46,7 +47,8 @@ static	int		ask_to_show_data(float *disp_val)
 	FT_INIT(int, elem_lst, disp_val[4]);
 	FT_INIT(int, nb_rows, s_select.nb_rows);
 	FT_INIT(int, len_line, (s_select.len_str + 2));
-	if (max_elem_lst < elem_lst || (nb_rows > 0 && nb_rows > s_select.win->ws_row)
+	if (max_elem_lst < elem_lst || (nb_rows > 0
+		&& nb_rows > s_select.win->ws_row)
 		|| len_line > s_select.win->ws_col)
 	{
 		s_select.running = 0;
@@ -56,18 +58,18 @@ static	int		ask_to_show_data(float *disp_val)
 	return (1);
 }
 
-
 void			display_elements(t_var *match_files)
 {
 	if (!match_files)
 		return (void_error("Data", "no arguments to display"));
-	FT_INIT(float*, disp_val, get_display_values(s_select.nb_elem, s_select.len_str));
+	FT_INIT(float*, disp_val,
+			get_display_values(s_select.nb_elem, s_select.len_str));
 	FT_INIT(t_completion *, lst_lst, NULL);
 	FT_INIT(t_completion*, tmp_lst, NULL);
 	FT_INIT(float, nb_col, disp_val[2]);
 	FT_INIT(float, nb_elem_lst, disp_val[4]);
 	tputs(tgetstr("ho", NULL), 1, ft_putchar_int);
-	tputs(tgetstr("cd", NULL),1,ft_putchar_int);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar_int);
 	if (!ask_to_show_data(disp_val))
 		return (free(disp_val));
 	if (s_select.lst_lst)

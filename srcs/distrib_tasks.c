@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   distrib_tasks.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/13 15:30:13 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:30:15 by dvirgile         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_select.h"
 
-void 					set_style_move(int index, t_var *files)
+void					set_style_move(int index, t_var *files)
 {
 	while (index > -1 && files)
 	{
@@ -17,7 +29,7 @@ void 					set_style_move(int index, t_var *files)
 	}
 }
 
-static void 			set_style_space(int index, t_var *files)
+static void				set_style_space(int index, t_var *files)
 {
 	while (index != -1 && files)
 	{
@@ -30,11 +42,10 @@ static void 			set_style_space(int index, t_var *files)
 	}
 }
 
-
-void 			delete_element(void)
+void					delete_element(void)
 {
 	FT_INIT(int, index, 0);
-	FT_INIT(t_var*,prev, NULL);
+	FT_INIT(t_var*, prev, NULL);
 	if (!s_select.files)
 		return ;
 	index = go_to_position(s_select.pos_x, s_select.pos_y, K_SPACE);
@@ -58,7 +69,7 @@ void 			delete_element(void)
 	set_style_move(index, s_select.files);
 }
 
-void 			select_element(void)
+void					select_element(void)
 {
 	FT_INIT(int, index, 0);
 	if (!s_select.files)
@@ -68,7 +79,7 @@ void 			select_element(void)
 	set_style_move(index, s_select.files);
 }
 
-void			move_list(int key)
+void					move_list(int key)
 {
 	if (key == K_RIGHT)
 		s_select.pos_x += 1;
@@ -84,5 +95,4 @@ void			move_list(int key)
 	if (s_select.nb_elem > 1)
 		index = go_to_position(s_select.pos_x, s_select.pos_y, key);
 	set_style_move(index, s_select.files);
-	// ft_printf("pos_x =%d, pos_y =%d\n", s_select.pos_x, s_select.pos_y);
 }

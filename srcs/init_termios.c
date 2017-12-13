@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   termios.c                                          :+:      :+:    :+:   */
+/*   init_termios.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apinho <apinho@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/24 18:13:29 by apinho            #+#    #+#             */
-/*   Updated: 2017/02/24 18:32:44 by apinho           ###   ########.fr       */
+/*   Created: 2017/12/13 15:48:04 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:48:05 by dvirgile         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_select.h"
 
-static int 		termios_error(int error_type)
+static int		termios_error(int error_type)
 {
 	if (error_type == 1)
 		ft_putstr_fd("No Term found\n", 2);
@@ -21,14 +21,14 @@ static int 		termios_error(int error_type)
 	return (0);
 }
 
-int		init_termios(struct termios my_termios)
+int				init_termios(struct termios my_termios)
 {
 	FT_INIT(char*, term_name, NULL);
 	if ((term_name = getenv("TERM")) == NULL)
 		return (termios_error(1));
 	if (tgetent(NULL, term_name) == ERR)
 		return (termios_error(2));
-	tputs(tgetstr("clear", NULL),1,ft_putchar_int);
+	tputs(tgetstr("clear", NULL), 1, ft_putchar_int);
 	tputs(tgetstr("sc", NULL), 1, ft_putchar_int);
 	tputs(tgetstr("vi", NULL), 1, ft_putchar_int);
 	tcgetattr(STDIN_FILENO, &s_select.t_back);

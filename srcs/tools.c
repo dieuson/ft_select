@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dvirgile <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/13 15:04:50 by dvirgile          #+#    #+#             */
+/*   Updated: 2017/12/13 15:06:18 by dvirgile         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_select.h"
 
 int				arrondi(float val)
@@ -9,7 +21,6 @@ int				arrondi(float val)
 	return (val2);
 }
 
-
 int				ft_nb_elem_lst(int nb_elem, int nb_col)
 {
 	FT_INIT(float, result, 0);
@@ -18,7 +29,7 @@ int				ft_nb_elem_lst(int nb_elem, int nb_col)
 	return (result);
 }
 
-char		*is_space(char *sentence, char *str)
+char			*is_space(char *sentence, char *str)
 {
 	FT_INIT(char*, tmp, str);
 	if (sentence[ft_strlen(sentence) - 1] == ' ')

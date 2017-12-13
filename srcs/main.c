@@ -31,10 +31,9 @@ static int 				return_values(t_var *files)
 		if (files->disp_attribute == T_UNDERREVERSE ||
 				files->disp_attribute == T_REVERSE)
 		{
-					
-			ft_printf("%s", files->name);
+			ft_putstr_fd(files->name, 1);
 			if (files->next)
-				ft_putstr(" ");
+				ft_putstr_fd(" ", 1);
 		}
 		files = files->next;
 	}
@@ -43,7 +42,7 @@ static int 				return_values(t_var *files)
 	s_select.lst_lst = NULL;
 	if (head)
 		free_files_list(head);
-	ft_putstr("\n");
+	ft_putstr_fd("\n", 1);
 	return (1);
 }
 

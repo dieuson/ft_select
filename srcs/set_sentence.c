@@ -66,14 +66,22 @@ static char 		*set_printf_prototype(int len_str, int disp_attribute)
 	return (prototype);
 }
 
+static void			display_with_spaces(char *str, int nb_spaces)
+{
+	ft_putstr_fd(str, 0);
+	nb_spaces -= ft_strlen(str);
+	while (nb_spaces > 0)
+	{
+		ft_putstr_fd(" ", 0);
+		nb_spaces--;
+	}
+}
+
 char		*set_sentence(char *str, int len_str, t_var *cell)
 {
 	FT_INIT(char*, tmp, set_printf_prototype(len_str, cell->disp_attribute));
 	FT_INIT(char*, attribute_name, set_disp_atribute(cell->name, cell->disp_attribute));
-	str = ft_strcat(str, "%-");
-	str = ft_strcat(str, tmp);
-	str = ft_strcat(str, "s");
-	ft_printf(str, attribute_name);
+	display_with_spaces(attribute_name, ft_atoi(tmp));
 	ft_bzero(str, ft_strlen(str));
 	ft_strdel(&tmp);
 	ft_strdel(&attribute_name);

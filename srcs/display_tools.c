@@ -38,6 +38,6 @@ int		if_col(t_var *col, char *tmp,
 		tmp = set_sentence(tmp, len_str, col);
 		col = col->next;
 	}
-	ft_putendl("");
+	ft_putstr_fd("\n", 0);
 	return (nb_elem);
 }

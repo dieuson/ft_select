@@ -84,5 +84,5 @@ void			move_list(int key)
 	if (s_select.nb_elem > 1)
 		index = go_to_position(s_select.pos_x, s_select.pos_y, key);
 	set_style_move(index, s_select.files);
-	ft_printf("pos_x =%d, pos_y =%d\n", s_select.pos_x, s_select.pos_y);
+	// ft_printf("pos_x =%d, pos_y =%d\n", s_select.pos_x, s_select.pos_y);
 }

@@ -14,6 +14,6 @@
 
 int		ftp_putchar(uint32_t c)
 {
-	write(1, &c, 1);
+	write(0, &c, 1);
 	return (1);
 }

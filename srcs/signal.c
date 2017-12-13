@@ -48,7 +48,7 @@ void		ft_segfault(int sig)
 {
 	(void)sig;
 	ft_reset_termios(s_select.t_back);
-	ft_putstr("Segfault\n");
+	ft_putstr_fd("Segfault\n", 2);
 	exit(0);
 }
 

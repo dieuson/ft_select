@@ -16,9 +16,9 @@ int		ftp_putstr(uint8_t *str)
 {
 	if (!str)
 	{
-		write(1, "(null)", 6);
+		write(0, "(null)", 6);
 		return (6);
 	}
-	write(1, str, ftp_strlen(str));
+	write(0, str, ftp_strlen(str));
 	return (ftp_strlen(str));
 }
